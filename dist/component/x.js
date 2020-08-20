@@ -11,7 +11,5 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-  return _react2.default.createElement(
-    'span'
-  );
+  return _react2.default.createElement('span', null);
 };

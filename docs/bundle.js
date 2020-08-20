@@ -419,7 +419,7 @@
 	              _react2.default.createElement(
 	                'span',
 	                { className: 'label-text' },
-	                'Diabled, Unchecked'
+	                'Disabled, Unchecked'
 	              )
 	            )
 	          ),
@@ -440,7 +440,7 @@
 	          _react2.default.createElement(
 	            'pre',
 	            null,
-	            '<label>\n  <Toggle\n    defaultChecked={false}\n    disabled={true} />\n  <span className=\'label-text\'>Diabled, Unchecked</span>\n</label>\n<label>\n  <Toggle\n    defaultChecked={true}\n    disabled={true} />\n  <span className=\'label-text\'>Disabled, Checked</span>\n</label>'
+	            '<label>\n  <Toggle\n    defaultChecked={false}\n    disabled={true} />\n  <span className=\'label-text\'>Disabled, Unchecked</span>\n</label>\n<label>\n  <Toggle\n    defaultChecked={true}\n    disabled={true} />\n  <span className=\'label-text\'>Disabled, Checked</span>\n</label>'
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -22414,12 +22414,19 @@
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate(prevProps) {
 	      if (prevProps.checked !== this.props.checked) {
+	        // Disable linting rule here since this usage of setState inside
+	        // componentDidUpdate is OK; see
+	        // https://reactjs.org/docs/react-component.html#componentdidupdate
+	        // eslint-disable-next-line react/no-did-update-set-state
 	        this.setState({ checked: !!this.props.checked });
 	      }
 	    }
 	  }, {
 	    key: 'handleClick',
 	    value: function handleClick(event) {
+	      if (this.props.disabled) {
+	        return;
+	      }
 	      var checkbox = this.input;
 	      if (event.target !== checkbox && !this.moved) {
 	        this.previouslyChecked = checkbox.checked;
@@ -22436,6 +22443,9 @@
 	  }, {
 	    key: 'handleTouchStart',
 	    value: function handleTouchStart(event) {
+	      if (this.props.disabled) {
+	        return;
+	      }
 	      this.startX = (0, _util.pointerCoord)(event).x;
 	      this.activated = true;
 	    }
@@ -22777,11 +22787,6 @@
 	  return _react2.default.createElement(
 	    'svg',
 	    { width: '14', height: '11', viewBox: '0 0 14 11' },
-	    _react2.default.createElement(
-	      'title',
-	      null,
-	      'switch-check'
-	    ),
 	    _react2.default.createElement('path', { d: 'M11.264 0L5.26 6.004 2.103 2.847 0 4.95l5.26 5.26 8.108-8.107L11.264 0', fill: '#fff', fillRule: 'evenodd' })
 	  );
 	};
@@ -22806,11 +22811,6 @@
 	  return _react2.default.createElement(
 	    'svg',
 	    { width: '10', height: '10', viewBox: '0 0 10 10' },
-	    _react2.default.createElement(
-	      'title',
-	      null,
-	      'switch-x'
-	    ),
 	    _react2.default.createElement('path', { d: 'M9.9 2.12L7.78 0 4.95 2.828 2.12 0 0 2.12l2.83 2.83L0 7.776 2.123 9.9 4.95 7.07 7.78 9.9 9.9 7.776 7.072 4.95 9.9 2.12', fill: '#fff', fillRule: 'evenodd' })
 	  );
 	};
@@ -22881,7 +22881,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".react-toggle {\n  touch-action: pan-x;\n\n  display: inline-block;\n  position: relative;\n  cursor: pointer;\n  background-color: transparent;\n  border: 0;\n  padding: 0;\n\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n\n  -webkit-tap-highlight-color: rgba(0,0,0,0);\n  -webkit-tap-highlight-color: transparent;\n}\n\n.react-toggle-screenreader-only {\n  border: 0;\n  clip: rect(0 0 0 0);\n  height: 1px;\n  margin: -1px;\n  overflow: hidden;\n  padding: 0;\n  position: absolute;\n  width: 1px;\n}\n\n.react-toggle--disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n  -webkit-transition: opacity 0.25s;\n  transition: opacity 0.25s;\n}\n\n.react-toggle-track {\n  width: 50px;\n  height: 24px;\n  padding: 0;\n  border-radius: 30px;\n  background-color: #4D4D4D;\n  -webkit-transition: all 0.2s ease;\n  -moz-transition: all 0.2s ease;\n  transition: all 0.2s ease;\n}\n\n.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {\n  background-color: #000000;\n}\n\n.react-toggle--checked .react-toggle-track {\n  background-color: #19AB27;\n}\n\n.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {\n  background-color: #128D15;\n}\n\n.react-toggle-track-check {\n  position: absolute;\n  width: 14px;\n  height: 10px;\n  top: 0px;\n  bottom: 0px;\n  margin-top: auto;\n  margin-bottom: auto;\n  line-height: 0;\n  left: 8px;\n  opacity: 0;\n  -webkit-transition: opacity 0.25s ease;\n  -moz-transition: opacity 0.25s ease;\n  transition: opacity 0.25s ease;\n}\n\n.react-toggle--checked .react-toggle-track-check {\n  opacity: 1;\n  -webkit-transition: opacity 0.25s ease;\n  -moz-transition: opacity 0.25s ease;\n  transition: opacity 0.25s ease;\n}\n\n.react-toggle-track-x {\n  position: absolute;\n  width: 10px;\n  height: 10px;\n  top: 0px;\n  bottom: 0px;\n  margin-top: auto;\n  margin-bottom: auto;\n  line-height: 0;\n  right: 10px;\n  opacity: 1;\n  -webkit-transition: opacity 0.25s ease;\n  -moz-transition: opacity 0.25s ease;\n  transition: opacity 0.25s ease;\n}\n\n.react-toggle--checked .react-toggle-track-x {\n  opacity: 0;\n}\n\n.react-toggle-thumb {\n  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;\n  position: absolute;\n  top: 1px;\n  left: 1px;\n  width: 22px;\n  height: 22px;\n  border: 1px solid #4D4D4D;\n  border-radius: 50%;\n  background-color: #FAFAFA;\n\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n\n  -webkit-transition: all 0.25s ease;\n  -moz-transition: all 0.25s ease;\n  transition: all 0.25s ease;\n}\n\n.react-toggle--checked .react-toggle-thumb {\n  left: 27px;\n  border-color: #19AB27;\n}\n\n.react-toggle--focus .react-toggle-thumb {\n  -webkit-box-shadow: 0px 0px 3px 2px #0099E0;\n  -moz-box-shadow: 0px 0px 3px 2px #0099E0;\n  box-shadow: 0px 0px 2px 3px #0099E0;\n}\n\n.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {\n  -webkit-box-shadow: 0px 0px 5px 5px #0099E0;\n  -moz-box-shadow: 0px 0px 5px 5px #0099E0;\n  box-shadow: 0px 0px 5px 5px #0099E0;\n}\n", ""]);
+	exports.push([module.id, ".react-toggle {\r\n  touch-action: pan-x;\r\n\r\n  display: inline-block;\r\n  position: relative;\r\n  cursor: pointer;\r\n  background-color: transparent;\r\n  border: 0;\r\n  padding: 0;\r\n\r\n  -webkit-touch-callout: none;\r\n  -webkit-user-select: none;\r\n  -khtml-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n\r\n  -webkit-tap-highlight-color: rgba(0,0,0,0);\r\n  -webkit-tap-highlight-color: transparent;\r\n}\r\n\r\n.react-toggle-screenreader-only {\r\n  border: 0;\r\n  clip: rect(0 0 0 0);\r\n  height: 1px;\r\n  margin: -1px;\r\n  overflow: hidden;\r\n  padding: 0;\r\n  position: absolute;\r\n  width: 1px;\r\n}\r\n\r\n.react-toggle--disabled {\r\n  cursor: not-allowed;\r\n  opacity: 0.5;\r\n  -webkit-transition: opacity 0.25s;\r\n  transition: opacity 0.25s;\r\n}\r\n\r\n.react-toggle-track {\r\n  width: 50px;\r\n  height: 24px;\r\n  padding: 0;\r\n  border-radius: 30px;\r\n  background-color: #4D4D4D;\r\n  -webkit-transition: all 0.2s ease;\r\n  -moz-transition: all 0.2s ease;\r\n  transition: all 0.2s ease;\r\n}\r\n\r\n.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {\r\n  background-color: #000000;\r\n}\r\n\r\n.react-toggle--checked .react-toggle-track {\r\n  background-color: #19AB27;\r\n}\r\n\r\n.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {\r\n  background-color: #128D15;\r\n}\r\n\r\n.react-toggle-track-check {\r\n  position: absolute;\r\n  width: 14px;\r\n  height: 10px;\r\n  top: 0px;\r\n  bottom: 0px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  line-height: 0;\r\n  left: 8px;\r\n  opacity: 0;\r\n  -webkit-transition: opacity 0.25s ease;\r\n  -moz-transition: opacity 0.25s ease;\r\n  transition: opacity 0.25s ease;\r\n}\r\n\r\n.react-toggle--checked .react-toggle-track-check {\r\n  opacity: 1;\r\n  -webkit-transition: opacity 0.25s ease;\r\n  -moz-transition: opacity 0.25s ease;\r\n  transition: opacity 0.25s ease;\r\n}\r\n\r\n.react-toggle-track-x {\r\n  position: absolute;\r\n  width: 10px;\r\n  height: 10px;\r\n  top: 0px;\r\n  bottom: 0px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  line-height: 0;\r\n  right: 10px;\r\n  opacity: 1;\r\n  -webkit-transition: opacity 0.25s ease;\r\n  -moz-transition: opacity 0.25s ease;\r\n  transition: opacity 0.25s ease;\r\n}\r\n\r\n.react-toggle--checked .react-toggle-track-x {\r\n  opacity: 0;\r\n}\r\n\r\n.react-toggle-thumb {\r\n  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;\r\n  position: absolute;\r\n  top: 1px;\r\n  left: 1px;\r\n  width: 22px;\r\n  height: 22px;\r\n  border: 1px solid #4D4D4D;\r\n  border-radius: 50%;\r\n  background-color: #FAFAFA;\r\n\r\n  -webkit-box-sizing: border-box;\r\n  -moz-box-sizing: border-box;\r\n  box-sizing: border-box;\r\n\r\n  -webkit-transition: all 0.25s ease;\r\n  -moz-transition: all 0.25s ease;\r\n  transition: all 0.25s ease;\r\n}\r\n\r\n.react-toggle--checked .react-toggle-thumb {\r\n  left: 27px;\r\n  border-color: #19AB27;\r\n}\r\n\r\n.react-toggle--focus .react-toggle-thumb {\r\n  -webkit-box-shadow: 0px 0px 3px 2px #0099E0;\r\n  -moz-box-shadow: 0px 0px 3px 2px #0099E0;\r\n  box-shadow: 0px 0px 2px 3px #0099E0;\r\n}\r\n\r\n.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {\r\n  -webkit-box-shadow: 0px 0px 5px 5px #0099E0;\r\n  -moz-box-shadow: 0px 0px 5px 5px #0099E0;\r\n  box-shadow: 0px 0px 5px 5px #0099E0;\r\n}\r\n", ""]);
 	
 	// exports
 
@@ -23229,7 +23229,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/* These are example-specific */\n\n.react-toggle {\n  margin-right: 8px;\n  vertical-align: middle;\n}\n\nlabel,\n.label-text {\n  vertical-align: middle;\n  font-weight: normal;\n  margin-bottom: 0; /* override bootstrap */\n}\n\n.example {\n  margin-top: 36px;\n  margin-bottom: 36px;\n}\n\npre {\n  margin-top: 8px;\n}\n\n.custom-classname.react-toggle--checked .react-toggle-track {\n  background-color: #ab199f;\n}\n", ""]);
+	exports.push([module.id, "/* These are example-specific */\r\n\r\n.react-toggle {\r\n  margin-right: 8px;\r\n  vertical-align: middle;\r\n}\r\n\r\nlabel,\r\n.label-text {\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  margin-bottom: 0; /* override bootstrap */\r\n}\r\n\r\n.example {\r\n  margin-top: 36px;\r\n  margin-bottom: 36px;\r\n}\r\n\r\npre {\r\n  margin-top: 8px;\r\n}\r\n\r\n.custom-classname.react-toggle--checked .react-toggle-track {\r\n  background-color: #ab199f;\r\n}\r\n", ""]);
 	
 	// exports
 
